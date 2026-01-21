@@ -1,0 +1,60 @@
+{
+  "name": "Course",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the course"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the course"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "fundamental_rights",
+        "directive_principles",
+        "constitutional_structure",
+        "judicial_system",
+        "citizen_duties",
+        "emergency_provisions",
+        "elections",
+        "local_governance"
+      ]
+    },
+    "difficulty_level": {
+      "type": "string",
+      "enum": ["beginner", "intermediate", "advanced"],
+      "default": "beginner"
+    },
+    "estimated_duration": {
+      "type": "string",
+      "description": "Example: '10 min'"
+    },
+    "youtube_url": {
+      "type": "string",
+      "description": "YouTube video URL"
+    },
+    "quizzes": {
+      "type": "array",
+      "description": "List of quiz questions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": { "type": "string" },
+          "options": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "answer": { "type": "string" }
+        }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "required": ["title", "description", "category"]
+}

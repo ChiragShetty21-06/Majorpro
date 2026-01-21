@@ -1,0 +1,80 @@
+{
+  "name": "Consultation",
+  "type": "object",
+  "properties": {
+    "query_title": {
+      "type": "string",
+      "description": "Brief title for the legal query"
+    },
+    "detailed_question": {
+      "type": "string",
+      "description": "Detailed description of the legal issue"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "family_law",
+        "property_dispute",
+        "employment_issue",
+        "consumer_complaint",
+        "criminal_matter",
+        "civil_rights",
+        "government_services",
+        "documentation",
+        "other"
+      ],
+      "description": "Category of the legal query"
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Urgency of the query"
+    },
+    "user_location": {
+      "type": "string",
+      "description": "User's state/city"
+    },
+    "contact_preference": {
+      "type": "string",
+      "enum": [
+        "email",
+        "phone"
+      ],
+      "default": "email"
+    },
+    "language": {
+      "type": "string",
+      "default": "english"
+    },
+    "is_anonymous": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "under_review",
+        "responded",
+        "closed"
+      ],
+      "default": "submitted",
+      "description": "Status of the consultation query"
+    },
+    "response": {
+      "type": "string",
+      "description": "Response from the legal expert"
+    }
+  },
+  "required": [
+    "query_title",
+    "detailed_question",
+    "category"
+  ]
+}
