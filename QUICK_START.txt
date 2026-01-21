@@ -1,0 +1,131 @@
+# Quick Start - After Clerk Fix
+
+## Prerequisites
+- MongoDB running locally on port 27017
+- Node.js installed
+- Clerk account created at https://clerk.com
+
+## Get Your Clerk Secret Key (5 minutes)
+
+1. Open https://dashboard.clerk.com
+2. Click on your application
+3. Go to **API Keys** (left sidebar)
+4. Copy the **Secret Key** that starts with `sk_test_`
+
+## Install Dependencies (One-time)
+
+```bash
+# Backend
+cd backend
+npm install
+
+# Frontend
+cd ../jan-adhikar/jan-adhikar
+npm install
+```
+
+## Configuration
+
+### 1. Update Backend .env
+```bash
+# Edit: backend/.env
+CLERK_SECRET_KEY=sk_test_YOUR_SECRET_KEY_HERE
+```
+
+### 2. Verify Frontend .env
+```bash
+# Check: jan-adhikar/jan-adhikar/.env.local
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_...
+# (This should already be set from earlier)
+```
+
+## Start Development Servers
+
+### Terminal 1 - Backend
+```bash
+cd backend
+npm run dev
+# Should show: "Server running on port 5000"
+#             "MongoDB Connected: localhost"
+```
+
+### Terminal 2 - Frontend
+```bash
+cd jan-adhikar/jan-adhikar
+npm run dev
+# Should show: "Local: http://localhost:5174"
+```
+
+## Test the Sign-Up Flow
+
+1. Open http://localhost:5174 in browser
+2. Click "Get Started"
+3. Select "I'm a User" or "I'm a Lawyer"
+4. Click "Continue"
+5. Complete Clerk sign-up form
+6. Should redirect to dashboard automatically
+
+## Verify It Worked
+
+### Check 1: Browser
+- You should be on the home page
+- No error messages visible
+
+### Check 2: Browser Console (F12)
+- No red errors
+- Check Application → LocalStorage
+- Should see `token` and `user` keys
+
+### Check 3: Backend Console
+- Should see success logs
+- No error messages about Clerk or sync
+
+### Check 4: MongoDB (Optional)
+```bash
+# Open MongoDB shell and run:
+use jan-adhikar
+db.users.findOne({ email: "your-signup-email@example.com" })
+
+# Should return user object with clerkId
+```
+
+## Common Issues & Fixes
+
+### "Couldn't find your account"
+→ Backend not running or MongoDB disconnected
+→ Check backend terminal for errors
+
+### Stuck on "Setting up your account..."
+→ Backend sync endpoint failing
+→ Check backend console for error messages
+→ Verify CLERK_SECRET_KEY is correct
+
+### Redirected to sign-in page
+→ Token not saved to localStorage
+→ Check browser console for errors
+→ Try clearing cache: Ctrl+Shift+Delete
+
+### 404 errors in console
+→ Backend not running or CORS issue
+→ Make sure backend is running on port 5000
+→ Check backend server logs
+
+## Restart Everything (If stuck)
+
+1. Stop all running servers (Ctrl+C)
+2. Clear browser cache (Ctrl+Shift+Delete)
+3. Start backend first, wait for "Server running"
+4. Start frontend second
+5. Refresh browser
+6. Try signup again
+
+## Need Help?
+
+1. Check `CLERK_INTEGRATION_FIX.md` for detailed setup
+2. Check `CLERK_BACKEND_SETUP.md` for API details
+3. Check backend console for error messages
+4. Check browser DevTools console for client-side errors
+
+---
+
+Once you see the dashboard after signing up, the Clerk integration is working! 🎉
